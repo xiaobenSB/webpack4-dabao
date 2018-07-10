@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<title>{$parent_title}</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-widt，minimal-ui">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<head>
+<script>
+  window.onload=function(){
+   getRem(720,100)
+  };
+  window.onresize=function(){
+    getRem(720,100)
+  };
+ function getRem(width,prem){
+  var html = document.getElementsByTagName("html")[0];
+  var oWidth = document.body.clientWidth || document.documentElement.clientWidth;
+  html.style.fontSize = oWidth/width*prem + "px";
+ }
+</script>
+</head>
+
+<body>
+<!--地区选择区域{$arr['codenum']}-->
+<div class="area" style="width:100%;padding-top:.2rem;">
+  <ul class="areaUl"  style="list-style:none;width:80%;margin:0 auto">
+	<volist name="data" id="arr">
+      <li class="areaLi" id="10">
+        <a class="clearBoth" href="javascript:void(0)" style="display: block;line-height: 1rem;text-align:center;">
+         <span class="{$arr['id']}" data-mon-ing="true" style="float:left;font-size:.35rem;width:100%">{$parent_title} - {$arr['title']}</span>
+        </a>
+      </li>
+	   <li class="areaLi" id="10_20">
+        <a class="clearBoth" href="javascript:void(0)" style="display: block;line-height: 1rem;text-align:center;">
+         <span class="{$arr['id']}" data-mon-ing="true" style="float:left;font-size:.35rem;width:100%">{$parent_title} - {$arr['title']}</span>
+        </a>
+      </li>
+	  </volist>
+  </ul>
+</div>
+<!--弹窗-->
+<div class="cover" style="width:100%;height:102%;background-color:#000;position:absolute;top:0;left:0;opacity:.5;z-index:999999;display:none">
+</div>
+<div class="timepay" style="width:100%;position:fixed;bottom:0;left:0;font-size:.3rem;background-color:#fff;display:none;z-index:999999999999">
+    <a class="close" href="javascript:void(0)" style="position:absolute;right:0;top:0;width:.3rem;height:.3rem;border:3px solid black;border-radius:50%;line-height:.3rem;text-align:center;font-size:.4rem;font-weight:bold" >x</a>
+    <span style="display:block;line-height: 1rem;color: #ccc;font-size: .3rem;padding-left: .2rem;margin-bottom:.2rem">请选择你需要购买的时间</span>
+    <div class="clearBoth did" style="width:80%;margin:0 auto;">
+        <dd style="float:left;width:45%;box-shadow:0 0 3px #ccc;margin-right:.4rem;margin-bottom:.2rem"><a href="javascript:void(0)" style="display:block;line-height:.7rem;text-align:center;background-color:#a8a8a8">10分钟</a></dd>
+        <dd style="float:left;width:45%;box-shadow:0 0 3px #ccc"><a href="javascript:void(0)" style="display:block;line-height:.7rem;text-align:center;background-color:#a8a8a8">20分钟</a></dd>
+        <dd style="float:left;width:45%;box-shadow:0 0 3px #ccc;margin-right:.4rem;margin-bottom:.2rem"><a href="javascript:void(0)" style="display:block;line-height:.7rem;text-align:center;background-color:#a8a8a8">30分钟</a></dd>
+        <dd style="float:left;width:45%;box-shadow:0 0 3px #ccc"><a href="javascript:void(0)" style="display:block;line-height:.7rem;text-align:center;background-color:#a8a8a8">40分钟</a></dd>
+        <dd style="float:left;width:45%;box-shadow:0 0 3px #ccc;margin-right:.4rem;margin-bottom:.4rem"><a href="javascript:void(0)" style="display:block;line-height:.7rem;text-align:center;background-color:#a8a8a8">50分钟</a></dd>
+        <dd style="float:left;width:45%;box-shadow:0 0 3px #ccc"><a href="javascript:void(0)" style="display:block;line-height:.7rem;text-align:center;background-color:#a8a8a8">60分钟</a></dd>
+    </div>
+    <a class="btn" href="javascript:void(0)" style="display:block;line-height:.8rem;text-align:center;background-color:#a8a8a8;color:#fff">立刻支付</a>
+<div>
+</body>
+
+</html>
+
+
+

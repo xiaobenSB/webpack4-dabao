@@ -1,0 +1,6 @@
+除了test文件夹其它都是react的资源文件夹
+
+这里我说的子组件里是有return（标签）这样的 
+redux这个库的使用：如果子组件想使用dispatch方法去改变值，那得先使用redux对象里的Provider，然后子组件页面再引入react-redux对像里的connect来进行连接，connect(这里放给第二个括号传监听的值)(这里放接收值的子组件，默认有dispatch了)，他会返回一个新的子组件（被redux监听了），action文件夹放dispatch(这里的值)，他会触发reducers里的index.js监听的，dispatch(这里的对象type键名对应reducers里的index.js监听,如果有传其它值，只有监听到type值才可以用这个值,然后监听到的就可以用action对象来判断传的type或值)
+
+react-redux是配合react这个库来使用的
