@@ -4,23 +4,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
-    entry: { //这里的文件都会加载到设置的模板里
+    entry: { //这里的文件都会加载到设置的出口模板里
         app: './src/index.js',
 		test:path.resolve(__dirname, './src/test/index.js'),
     },
-	 output: {
-        path: path.resolve(__dirname, 'dist'),
-        // filename: 'app_[chunkhash].js'
-        // 加上/js就会输出到js文件夹下面
-        filename: 'js/[name]_[chunkhash].js',  //[name]对应new HtmlWebpackPlugin设置的(去掉后缀的)filename
-    },
-    module: {
+	
+    module: { //use里用到解析时使用的模块是从右到左
     rules: [  //当入口的模块js reuire,import其它东西时（他子模块里引入的东西也会来调用，css里设置的图片(css-loader模块会调用url-loader模块来处理)），然后根据后缀名来使用对应的加载器来处理引入的数据
-	  {
+	  {         
                 test: /(\.jsx|\.js)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"  //.babel文件配置解析react
+                loader: 'babel-loader',  //.babel文件配置解析react
                 }
       },
       {
