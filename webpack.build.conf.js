@@ -7,21 +7,30 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const CleanPlugin = require('clean-webpack-plugin'); //清理文件夹
+const CleanWebpackPlugin = require('clean-webpack-plugin');//清理文件夹
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const webpackConfig = merge(baseWebpackConfig, {
+ externals: {   //不打包哪个的设置,然后用cdn来引入减少打包过大
+      //"react": "React"
+  },
   module: {
      rules:[
 
         ]
   },
-   output:{
+   output:{ //出口模块路径设置
         // 打包后html内引入文件是相对路径还是绝对路径
         publicPath: "./",
+        path: path.resolve(__dirname, 'dist'),
+        // filename: 'app_[chunkhash].js'
+        // 加上/js就会输出到js文件夹下面
+		 filename: 'js/[name]_[chunkhash].js',  //[name]对应new HtmlWebpackPlugin设置的(去掉后缀的)filename,这里是的文件名是必须对应entry生成的文件名，就是/后面的有规定
+        chunkFilename: '',  //这里是破坏上面filename的文件名，使每次生成的文件名都是随机的，好像不能自定义文件名好像是判断存在的话就改
     },
  plugins: [
-               //5、提取css到单独的文件夹对应/\.css$/引入后缀名
+        new CleanWebpackPlugin(['dist']),//清理dist文件夹
+        //5、提取css到单独的文件夹对应/\.css$/引入后缀名
         new ExtractTextPlugin({
             //加上/css就会输出到css文件夹下面
             filename: 'css/[name]_[chunkhash].css',
@@ -42,7 +51,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             chunks:['test']
         }),
         //清空输出目录
-         new CleanPlugin(['dist']),
+         
         // 1、压缩CSS
         new OptimizeCSSPlugin({
             cssProcessorOptions: {
@@ -74,6 +83,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 			}
 			}
 			}),
+		
         //3、指定环境
         new webpack.DefinePlugin({ //默认得配
             'process.env': {
@@ -86,3 +96,4 @@ const webpackConfig = merge(baseWebpackConfig, {
 
 
 module.exports = webpackConfig
+
