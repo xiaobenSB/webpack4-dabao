@@ -7,10 +7,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = merge(common, {
    devtool: false,
    devServer: {
-	  disableHostCheck: true,  //允许代理服务器访问内容
+	  disableHostCheck: true,  //允许服务器访问内容
       port: 9000, //端口改为9000
       open:true, // 自动打开浏览器
-      index:'index.html' // 与HtmlWebpackPlugin中filename一样,不然默认根目录index.html
+      index:'app.html' // 对应HtmlWebpackPlugin中的filename,然后使用该打包模块,不然默认根目录index.html
     },
 	plugins: [
 	   new ExtractTextPlugin({
