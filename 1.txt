@@ -1,36 +1,44 @@
-ʹ��jq���������ʱ����ֱ��������Ҫ��ҳ��require��jquery��Ȼ��ʹ�ã������������ģ�ע������ɺ�����ԭ�����ÿ�ܵĻ����ϵ��ÿ��
+使用jq或其它框架时，你直接在你需要的页面require（jquery）然后使用，他会打包处理的，注意打包完成后不能在原来调用框架的基础上调用框架
 
-��ie9����û��Promise(�ᱨ��setΪ����),������Ҫ������ļ�����������import 'babel-polyfill'�����м���,������ļ�����ܶ�
+在ie9里是没有Promise(会报出set为定义),所以需要在入口文件最上面引入import 'babel-polyfill'来进行兼容,但打包文件后会大很多
 
-ʹ��postcss���Ը�css��ǰ׺ʱ��Ҫ����һ�������ļ�������packge.json���browserslist���飬��������������������дcss��$blue: #056ef0;Ȼ����������������������Ҫ���ֵ��css���Ե����磺color:$blue;
+使用postcss可以给css加前缀时需要配置一个配置文件依赖和packge.json里的browserslist数组，而且它还可以那你这样写css：$blue: #056ef0;然后你可以在他下面任意给想要这个值的css属性调用如：color:$blue;
 
-css-loader�Ǵ���css���urlͼƬ������url-loader����
-
-
-webpack --config  xx.js  --config��ʹ�� xx.js����,webpack��Ĭ�����õģ�ע��������������
-        --inline ���������ļ��Ķ����Զ�ˢ����ҳ����(webpack-dev-server)      ������������ǰ������
-        --progress ������ʾ�������
+css-loader是处理css里的url图片，调用url-loader设置
 
 
-webpack-dev-server�����3.x�Ļ���webpack������4.x�Ų��ᱨ��TypeError: Cannot read property 'compile' of undefined����, ͬ�����webpack��3.x����webpack-dev-server������2.x
+webpack --config  xx.js  --config是使用 xx.js配置,webpack有默认配置的，注意这个最后面设置
+        --inline 开启监听文件改动并自动刷新网页功能(webpack-dev-server)      开启都是在最前面设置
+        --progress 开启显示打包进度
 
 
- webpack4ʱ,Ҫע���ģ��汾
-"webpack-cli"������
+webpack-dev-server如果是3.x的话，webpack必须是4.x才不会报此TypeError: Cannot read property 'compile' of undefined错误, 同理如果webpack是3.x，则webpack-dev-server必须是2.x
+
+
+ webpack4时,要注意的模块版本
+"webpack-cli"这个随便
 "html-webpack-plugin": "^3.2.0",
 "extract-text-webpack-plugin": "^4.0.0-beta.0",
 
-packge.json��ģ����postcss����
+packge.json里的，配合postcss调用
 
 "browserslist": [  
     "defaults",
-    "ie >= 9", //������úܿ����Ǽ��ie��ʲô�汾��>=9����ʹ��ie9�����ϰ汾�������������css�����������
+    "ie >= 9", //这个配置很可能是检测ie是什么版本，>=9就是使用ie9或以上版本的浏览器来管理css代码兼容问题
 	"Firefox >= 10",
 	"Opera >= 49",
     "> 1%",
     "iOS 7",
     "last 3 iOS versions"
 
-�� ie 10�Ļ��Ͳ���Ҫ��--ms����ie9Ҫ��--ms
+如 ie 10的话就不需要加--ms，而ie9要加--ms
 
-ע���import һ����� ����ʹ�ã���jq����ʹ���js�ܴ���Ϊ����ֻ�����һ��js���Ƕ��
+注意别import 一个框架 过来使用，如jq，会使打包js很大，因为最终只打包成一个js不是多个
+
+babel官方推出了babel-preset-env插件。它可以根据开发者的配置，按需加载插件。配置项大致包括：
+
+需要支持的平台：比如node、浏览器等。
+需要支持的平台的版本：比如支持node@6.1等。
+默认配置的情况下，它跟 babel-preset-latest 是等同的，会加载从es2015开始的所有preset。
+
+入门例子
